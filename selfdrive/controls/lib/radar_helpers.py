@@ -57,6 +57,64 @@ class Track():
     self.aLeadTau = aLeadTau
 
 
+class VisionLead():
+  def __init__(self, kalman_params):
+    self.cnt = 0
+    self.aLeadTau = _LEAD_ACCEL_TAU
+    self.dRelLast = 0
+    self.modelProbLast = 0
+    self.K_A = kalman_params.A
+    self.K_C = kalman_params.C
+    self.K_K = kalman_params.K
+    self.kf = KF1D([[0.0], [0.0]], self.K_A, self.K_C, self.K_K)
+
+  def update(self, lead_msg, v_ego):
+    self.lead_msg = lead_msg  # ugly hack for minimum refactoring during test
+    # relative values, copy
+    self.dRel = lead_msg.x[0]  # LONG_DIST
+    self.yRel = -lead_msg.y[0]  # -LAT_DIST
+    self.modelProb = lead_msg.prob
+
+    # calculate vRel and vLead from successive dRel observations rather than use the model output
+    # reset KF if probability just transitioned over 50%
+    self.vRel = (self.dRel - self.dRelLast) / 0.05  # how to make sure this is robust to 20Hz ratekeeping hitches?
+    self.vLead = v_ego + self.vRel
+
+    if self.modelProbLast < 0.5 and self.modelProb >= 0.5:
+      self.kf = KF1D([[self.vLead], [0.0]], self.K_A, self.K_C, self.K_K)
+
+    if self.cnt > 0:
+      self.kf.update(v_ego + self.vRel)
+
+    self.vLeadK = float(self.kf.x[SPEED][0])
+    self.aLeadK = float(self.kf.x[ACCEL][0])
+
+    # Learn if constant acceleration
+    if abs(self.aLeadK) < 0.5:
+      self.aLeadTau = _LEAD_ACCEL_TAU
+    else:
+      self.aLeadTau *= 0.9
+
+    self.dRelLast = self.dRel
+    self.modelProbLast = self.modelProb
+    self.cnt += 1
+
+  def get_RadarState(self):
+    return {
+      "dRel": float(self.dRel - RADAR_TO_CAMERA),
+      "yRel": float(self.yRel),
+      "vRel": float(self.vRel),
+      "vLead": float(self.vLead),
+      "vLeadK": float(self.vLeadK),
+      "aLeadK": float(self.aLeadK),
+      "aLeadTau": _LEAD_ACCEL_TAU,
+      "fcw": False,
+      "modelProb": float(self.modelProb),
+      "radar": False,
+      "status": True
+    }
+
+
 class Cluster():
   def __init__(self):
     self.tracks = set()
@@ -129,21 +187,6 @@ class Cluster():
       "modelProb": model_prob,
       "radar": True,
       "aLeadTau": float(self.aLeadTau)
-    }
-
-  def get_RadarState_from_vision(self, lead_msg, v_ego):
-    return {
-      "dRel": float(lead_msg.x[0] - RADAR_TO_CAMERA),
-      "yRel": float(-lead_msg.y[0]),
-      "vRel": float(lead_msg.v[0] - v_ego),
-      "vLead": float(lead_msg.v[0]),
-      "vLeadK": float(lead_msg.v[0]),
-      "aLeadK": float(0),
-      "aLeadTau": _LEAD_ACCEL_TAU,
-      "fcw": False,
-      "modelProb": float(lead_msg.prob),
-      "radar": False,
-      "status": True
     }
 
   def __str__(self):
