@@ -62,6 +62,7 @@ class VisionLead():
     self.cnt = 0
     self.aLeadTau = _LEAD_ACCEL_TAU
     self.dRelLast = 0
+    self.vRelLast = 0
     self.modelProbLast = 0
     self.K_A = kalman_params.A
     self.K_C = kalman_params.C
@@ -71,13 +72,13 @@ class VisionLead():
   def update(self, lead_msg, v_ego):
     self.lead_msg = lead_msg  # ugly hack for minimum refactoring during test
     # relative values, copy
-    self.dRel = lead_msg.x[0]  # LONG_DIST
+    self.dRel = (self.dRelLast * 4 + lead_msg.x[0]) / 5  # Weighted average
     self.yRel = -lead_msg.y[0]  # -LAT_DIST
     self.modelProb = lead_msg.prob
 
     # calculate vRel and vLead from successive dRel observations rather than use the model output
     # reset KF if probability just transitioned over 50%
-    self.vRel = (self.dRel - self.dRelLast) / 0.05  # how to make sure this is robust to 20Hz ratekeeping hitches?
+    self.vRel = (self.vRelLast * 4) + ((self.dRel - self.dRelLast) / 0.05) / 5  # Weighted average
     self.vLead = v_ego + self.vRel
 
     if self.modelProbLast < 0.5 and self.modelProb >= 0.5:
@@ -96,6 +97,7 @@ class VisionLead():
       self.aLeadTau *= 0.9
 
     self.dRelLast = self.dRel
+    self.vRelLast = self.vRel
     self.modelProbLast = self.modelProb
     self.cnt += 1
 
