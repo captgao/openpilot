@@ -42,12 +42,6 @@ TogglesPanel::TogglesPanel(SettingsWindow *parent) : ListWidget(parent) {
       "../assets/offroad/icon_warning.png",
     },
     {
-      "IsRHD",
-      tr("Enable Right-Hand Drive"),
-      tr("Allow openpilot to obey left-hand traffic conventions and perform driver monitoring on right driver seat."),
-      "../assets/offroad/icon_openpilot_mirrored.png",
-    },
-    {
       "IsMetric",
       tr("Use Metric System"),
       tr("Display speed in km/h instead of mph."),
@@ -60,6 +54,12 @@ TogglesPanel::TogglesPanel(SettingsWindow *parent) : ListWidget(parent) {
       "../assets/offroad/icon_monitoring.png",
     },
     {
+      "EndToEndLong",
+      tr("🌮 End-to-end longitudinal (extremely alpha) 🌮"),
+      tr("Let the driving model control the gas and brakes, openpilot will drive as it thinks a human would. Super experimental."),
+      "../assets/offroad/icon_road.png",
+    },
+    {
       "DisengageOnAccelerator",
       tr("Disengage On Accelerator Pedal"),
       tr("When enabled, pressing the accelerator pedal will disengage openpilot."),
@@ -68,7 +68,7 @@ TogglesPanel::TogglesPanel(SettingsWindow *parent) : ListWidget(parent) {
 #ifdef ENABLE_MAPS
     {
       "NavSettingTime24h",
-      tr("Show ETA in 24h format"),
+      tr("Show ETA in 24h Format"),
       tr("Use 24h format instead of am/pm"),
       "../assets/offroad/icon_metric.png",
     },

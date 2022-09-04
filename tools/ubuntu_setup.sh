@@ -14,6 +14,7 @@ function install_ubuntu_common_requirements() {
     autoconf \
     build-essential \
     ca-certificates \
+    casync \
     clang \
     cmake \
     make \
@@ -107,7 +108,11 @@ if [ -f "/etc/os-release" ]; then
       if [[ ! $REPLY =~ ^[Yy]$ ]]; then
         exit 1
       fi
-      install_ubuntu_focal_requirements
+      if [ "$UBUNTU_CODENAME" = "jammy" ]; then
+        install_ubuntu_jammy_requirements
+      else
+        install_ubuntu_focal_requirements
+      fi
   esac
 else
   echo "No /etc/os-release in the system"

@@ -1,5 +1,5 @@
 import crcmod
-from selfdrive.car.hyundai.values import CAR, CHECKSUM
+from selfdrive.car.hyundai.values import CAR, CHECKSUM, CAMERA_SCC_CAR
 
 hyundai_checksum = crcmod.mkCrcFun(0x11D, initCrc=0xFD, rev=False, xorOut=0xdf)
 
@@ -18,8 +18,8 @@ def create_lkas11(packer, frame, car_fingerprint, apply_steer, steer_req,
 
   if car_fingerprint in (CAR.SONATA, CAR.PALISADE, CAR.KIA_NIRO_EV, CAR.KIA_NIRO_HEV_2021, CAR.SANTA_FE,
                          CAR.IONIQ_EV_2020, CAR.IONIQ_PHEV, CAR.KIA_SELTOS, CAR.ELANTRA_2021, CAR.GENESIS_G70_2020,
-                         CAR.ELANTRA_HEV_2021, CAR.SONATA_HYBRID, CAR.KONA_EV, CAR.KONA_HEV, CAR.SANTA_FE_2022,
-                         CAR.KIA_K5_2021, CAR.IONIQ_HEV_2022, CAR.SANTA_FE_HEV_2022, CAR.SANTA_FE_PHEV_2022):
+                         CAR.ELANTRA_HEV_2021, CAR.SONATA_HYBRID, CAR.KONA_EV, CAR.KONA_HEV, CAR.KONA_EV_2022,
+                         CAR.SANTA_FE_2022, CAR.KIA_K5_2021, CAR.IONIQ_HEV_2022, CAR.SANTA_FE_HEV_2022, CAR.SANTA_FE_PHEV_2022):
     values["CF_Lkas_LdwsActivemode"] = int(left_lane) + (int(right_lane) << 1)
     values["CF_Lkas_LdwsOpt_USM"] = 2
 
@@ -37,12 +37,26 @@ def create_lkas11(packer, frame, car_fingerprint, apply_steer, steer_req,
     # Note: the warning is hidden while the blinkers are on
     values["CF_Lkas_SysWarning"] = 4 if sys_warning else 0
 
+  # Likely cars lacking the ability to show individual lane lines in the dash
+  elif car_fingerprint in (CAR.KIA_OPTIMA,):
+    # SysWarning 4 = keep hands on wheel + beep
+    values["CF_Lkas_SysWarning"] = 4 if sys_warning else 0
+
+    # SysState 0 = no icons
+    # SysState 1-2 = white car + lanes
+    # SysState 3 = green car + lanes, green steering wheel
+    # SysState 4 = green car + lanes
+    values["CF_Lkas_LdwsSysState"] = 3 if enabled else 1
+    values["CF_Lkas_LdwsOpt_USM"] = 2  # non-2 changes above SysState definition
+
+    # these have no effect
+    values["CF_Lkas_LdwsActivemode"] = 0
+    values["CF_Lkas_FcwOpt_USM"] = 0
+
   elif car_fingerprint == CAR.HYUNDAI_GENESIS:
     # This field is actually LdwsActivemode
     # Genesis and Optima fault when forwarding while engaged
     values["CF_Lkas_LdwsActivemode"] = 2
-  elif car_fingerprint == CAR.KIA_OPTIMA:
-    values["CF_Lkas_LdwsActivemode"] = 0
 
   dat = packer.make_can_msg("LKAS11", 0, values)[2]
 
@@ -62,11 +76,13 @@ def create_lkas11(packer, frame, car_fingerprint, apply_steer, steer_req,
   return packer.make_can_msg("LKAS11", 0, values)
 
 
-def create_clu11(packer, frame, clu11, button):
+def create_clu11(packer, frame, clu11, button, car_fingerprint):
   values = clu11
   values["CF_Clu_CruiseSwState"] = button
   values["CF_Clu_AliveCnt1"] = frame % 0x10
-  return packer.make_can_msg("CLU11", 0, values)
+  # send buttons to camera on camera-scc based cars
+  bus = 2 if car_fingerprint in CAMERA_SCC_CAR else 0
+  return packer.make_can_msg("CLU11", bus, values)
 
 
 def create_lfahda_mfc(packer, enabled, hda_set_speed=0):

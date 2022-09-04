@@ -294,7 +294,7 @@
 <context>
     <name>DriverViewScene</name>
     <message>
-        <location filename="../qt/offroad/driverview.cc" line="56"/>
+        <location filename="../qt/offroad/driverview.cc" line="55"/>
         <source>camera starting</source>
         <translation>카메라 시작중</translation>
     </message>
@@ -306,10 +306,12 @@
         <source>Cancel</source>
         <translation>취소</translation>
     </message>
-    <message>
+    <message numerus="yes">
         <location filename="../qt/widgets/input.cc" line="168"/>
-        <source>Need at least %1 characters!</source>
-        <translation>최소 %1 자가 필요합니다!</translation>
+        <source>Need at least %n character(s)!</source>
+        <translation>
+            <numerusform>최소 %n 자가 필요합니다!</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -338,27 +340,27 @@
 <context>
     <name>MapETA</name>
     <message>
-        <location filename="../qt/maps/map.cc" line="622"/>
+        <location filename="../qt/maps/map.cc" line="621"/>
         <source>eta</source>
         <translation>도착</translation>
     </message>
     <message>
-        <location filename="../qt/maps/map.cc" line="632"/>
+        <location filename="../qt/maps/map.cc" line="631"/>
         <source>min</source>
         <translation>분</translation>
     </message>
     <message>
-        <location filename="../qt/maps/map.cc" line="636"/>
+        <location filename="../qt/maps/map.cc" line="635"/>
         <source>hr</source>
         <translation>시간</translation>
     </message>
     <message>
-        <location filename="../qt/maps/map.cc" line="656"/>
+        <location filename="../qt/maps/map.cc" line="655"/>
         <source>km</source>
         <translation>km</translation>
     </message>
     <message>
-        <location filename="../qt/maps/map.cc" line="659"/>
+        <location filename="../qt/maps/map.cc" line="658"/>
         <source>mi</source>
         <translation>mi</translation>
     </message>
@@ -488,30 +490,30 @@ location set</source>
 <context>
     <name>NvgWindow</name>
     <message>
-        <location filename="../qt/onroad.cc" line="212"/>
+        <location filename="../qt/onroad.cc" line="218"/>
         <source>km/h</source>
         <translation>km/h</translation>
     </message>
     <message>
-        <location filename="../qt/onroad.cc" line="212"/>
+        <location filename="../qt/onroad.cc" line="218"/>
         <source>mph</source>
         <translation>mph</translation>
     </message>
     <message>
-        <location filename="../qt/onroad.cc" line="279"/>
-        <location filename="../qt/onroad.cc" line="282"/>
+        <location filename="../qt/onroad.cc" line="286"/>
+        <location filename="../qt/onroad.cc" line="289"/>
         <source>MAX</source>
         <translation>MAX</translation>
     </message>
     <message>
-        <location filename="../qt/onroad.cc" line="326"/>
-        <location filename="../qt/onroad.cc" line="329"/>
+        <location filename="../qt/onroad.cc" line="333"/>
+        <location filename="../qt/onroad.cc" line="336"/>
         <source>SPEED</source>
         <translation>SPEED</translation>
     </message>
     <message>
-        <location filename="../qt/onroad.cc" line="332"/>
-        <location filename="../qt/onroad.cc" line="335"/>
+        <location filename="../qt/onroad.cc" line="339"/>
+        <location filename="../qt/onroad.cc" line="342"/>
         <source>LIMIT</source>
         <translation>LIMIT</translation>
     </message>
@@ -635,20 +637,26 @@ location set</source>
         <source>openpilot</source>
         <translation>openpilot</translation>
     </message>
-    <message>
+    <message numerus="yes">
         <location filename="../qt/util.cc" line="82"/>
-        <source>%1 minute%2 ago</source>
-        <translation>%1 분전</translation>
+        <source>%n minute(s) ago</source>
+        <translation>
+            <numerusform>%n 분전</numerusform>
+        </translation>
     </message>
-    <message>
+    <message numerus="yes">
         <location filename="../qt/util.cc" line="85"/>
-        <source>%1 hour%2 ago</source>
-        <translation>%1 시간전</translation>
+        <source>%n hour(s) ago</source>
+        <translation>
+            <numerusform>%n 시간전</numerusform>
+        </translation>
     </message>
-    <message>
+    <message numerus="yes">
         <location filename="../qt/util.cc" line="88"/>
-        <source>%1 day%2 ago</source>
-        <translation>%1 일전</translation>
+        <source>%n day(s) ago</source>
+        <translation>
+            <numerusform>%n 일전</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -868,71 +876,71 @@ location set</source>
 <context>
     <name>Sidebar</name>
     <message>
-        <location filename="../qt/sidebar.cc" line="67"/>
-        <location filename="../qt/sidebar.cc" line="69"/>
+        <location filename="../qt/sidebar.cc" line="74"/>
+        <location filename="../qt/sidebar.cc" line="76"/>
         <source>CONNECT</source>
         <translation>연결</translation>
     </message>
     <message>
-        <location filename="../qt/sidebar.cc" line="67"/>
+        <location filename="../qt/sidebar.cc" line="74"/>
         <source>OFFLINE</source>
         <translation>오프라인</translation>
     </message>
     <message>
-        <location filename="../qt/sidebar.cc" line="69"/>
-        <location filename="../qt/sidebar.cc" line="82"/>
+        <location filename="../qt/sidebar.cc" line="76"/>
+        <location filename="../qt/sidebar.cc" line="89"/>
         <source>ONLINE</source>
         <translation>온라인</translation>
     </message>
     <message>
-        <location filename="../qt/sidebar.cc" line="69"/>
+        <location filename="../qt/sidebar.cc" line="76"/>
         <source>ERROR</source>
         <translation>오류</translation>
     </message>
     <message>
-        <location filename="../qt/sidebar.cc" line="73"/>
-        <location filename="../qt/sidebar.cc" line="76"/>
-        <location filename="../qt/sidebar.cc" line="78"/>
+        <location filename="../qt/sidebar.cc" line="80"/>
+        <location filename="../qt/sidebar.cc" line="83"/>
+        <location filename="../qt/sidebar.cc" line="85"/>
         <source>TEMP</source>
         <translation>온도</translation>
     </message>
     <message>
-        <location filename="../qt/sidebar.cc" line="73"/>
+        <location filename="../qt/sidebar.cc" line="80"/>
         <source>HIGH</source>
         <translation>높음</translation>
     </message>
     <message>
-        <location filename="../qt/sidebar.cc" line="76"/>
+        <location filename="../qt/sidebar.cc" line="83"/>
         <source>GOOD</source>
         <translation>좋음</translation>
     </message>
     <message>
-        <location filename="../qt/sidebar.cc" line="78"/>
+        <location filename="../qt/sidebar.cc" line="85"/>
         <source>OK</source>
         <translation>경고</translation>
     </message>
     <message>
-        <location filename="../qt/sidebar.cc" line="82"/>
+        <location filename="../qt/sidebar.cc" line="89"/>
         <source>VEHICLE</source>
         <translation>차량</translation>
     </message>
     <message>
-        <location filename="../qt/sidebar.cc" line="84"/>
+        <location filename="../qt/sidebar.cc" line="91"/>
         <source>NO</source>
         <translation>NO</translation>
     </message>
     <message>
-        <location filename="../qt/sidebar.cc" line="84"/>
+        <location filename="../qt/sidebar.cc" line="91"/>
         <source>PANDA</source>
         <translation>PANDA</translation>
     </message>
     <message>
-        <location filename="../qt/sidebar.cc" line="86"/>
+        <location filename="../qt/sidebar.cc" line="93"/>
         <source>GPS</source>
         <translation>GPS</translation>
     </message>
     <message>
-        <location filename="../qt/sidebar.cc" line="86"/>
+        <location filename="../qt/sidebar.cc" line="93"/>
         <source>SEARCH</source>
         <translation>검색중</translation>
     </message>
@@ -1166,33 +1174,33 @@ location set</source>
     </message>
     <message>
         <location filename="../qt/offroad/settings.cc" line="46"/>
-        <source>Enable Right-Hand Drive</source>
-        <translation>우측핸들 사용</translation>
-    </message>
-    <message>
-        <location filename="../qt/offroad/settings.cc" line="47"/>
-        <source>Allow openpilot to obey left-hand traffic conventions and perform driver monitoring on right driver seat.</source>
-        <translation>openpilot이 좌측 교통 규칙을 준수하고 우측 운전석에서 운전자 모니터링을 수행합니다.</translation>
-    </message>
-    <message>
-        <location filename="../qt/offroad/settings.cc" line="52"/>
         <source>Use Metric System</source>
         <translation>미터법 사용</translation>
     </message>
     <message>
-        <location filename="../qt/offroad/settings.cc" line="53"/>
+        <location filename="../qt/offroad/settings.cc" line="47"/>
         <source>Display speed in km/h instead of mph.</source>
         <translation>mph 대신 km/h로 속도를 표시합니다.</translation>
     </message>
     <message>
-        <location filename="../qt/offroad/settings.cc" line="58"/>
+        <location filename="../qt/offroad/settings.cc" line="52"/>
         <source>Record and Upload Driver Camera</source>
         <translation>운전자 카메라 녹화 및 업로드</translation>
     </message>
     <message>
-        <location filename="../qt/offroad/settings.cc" line="59"/>
+        <location filename="../qt/offroad/settings.cc" line="53"/>
         <source>Upload data from the driver facing camera and help improve the driver monitoring algorithm.</source>
         <translation>운전자 카메라에서 데이터를 업로드하고 운전자 모니터링 알고리즘을 개선합니다.</translation>
+    </message>
+    <message>
+        <location filename="../qt/offroad/settings.cc" line="58"/>
+        <source>🌮 End-to-end longitudinal (extremely alpha) 🌮</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/offroad/settings.cc" line="59"/>
+        <source>Let the driving model control the gas and brakes, openpilot will drive as it thinks a human would. Super experimental.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/offroad/settings.cc" line="64"/>
@@ -1206,7 +1214,7 @@ location set</source>
     </message>
     <message>
         <location filename="../qt/offroad/settings.cc" line="71"/>
-        <source>Show ETA in 24h format</source>
+        <source>Show ETA in 24h Format</source>
         <translation>24시간 형식으로 도착예정시간 표시</translation>
     </message>
     <message>
