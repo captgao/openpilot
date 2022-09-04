@@ -95,6 +95,9 @@ class CarControllerParams:
         "laneAssistDeactivated": 10,          # "Lane Assist deactivated." silent with persistent icon afterward
       }
 
+class VolkswagenFlags(IntFlag):
+  PP_CAR = 1
+
 
 class CANBUS:
   pt = 0
