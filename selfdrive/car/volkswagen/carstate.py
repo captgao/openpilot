@@ -5,7 +5,7 @@ from selfdrive.car.interfaces import CarStateBase
 from opendbc.can.parser import CANParser
 from opendbc.can.can_define import CANDefine
 from selfdrive.car.volkswagen.values import DBC, CANBUS, NetworkLocation, TransmissionType, GearShifter, \
-                                            CarControllerParams, MQB_BUTTONS, VolkswagenFlags
+                                            CarControllerParams, VolkswagenFlags
 
 class CarState(CarStateBase):
   def __init__(self, CP):
