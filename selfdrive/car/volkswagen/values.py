@@ -1,6 +1,6 @@
 from collections import defaultdict, namedtuple
 from dataclasses import dataclass
-from enum import Enum
+from enum import Enum, IntFlag
 from typing import Dict, List, Union
 
 from cereal import car
